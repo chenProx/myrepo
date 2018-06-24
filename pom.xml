@@ -7,7 +7,7 @@
     <groupId>com.yangchen</groupId>
     <artifactId>myrepo</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <name>webapp</name>
+    <name>myrepo</name>
     <url>http://maven.apache.org</url>
     <packaging>pom</packaging>
     <modules>
@@ -20,11 +20,16 @@
     <properties>
         <maven.test.skip>true</maven.test.skip>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <mysql.version>5.1.35</mysql.version>
+        <mybatis.version>3.2.8</mybatis.version>
+        <slf4j-api.version>1.7.21</slf4j-api.version>
+        <logback-core.version>1.1.7</logback-core.version>
+        <logback-classic.version>1.1.7</logback-classic.version>
+
         <version.spring>4.2.5.RELEASE</version.spring>
         <version.spring.data>1.5.2.RELEASE</version.spring.data>
         <version.aspectj>1.8.12</version.aspectj>
-        <version.mysql>5.1.35</version.mysql>
-        <version.mybatis>3.2.8</version.mybatis>
         <version.mybatis.spring>1.2.2</version.mybatis.spring>
         <version.c3p0>0.9.1.1</version.c3p0>
         <version.redis>2.8.1</version.redis>
@@ -46,7 +51,7 @@
         <version.jsch>0.1.53</version.jsch>
         <version.pagehelper>4.0.0</version.pagehelper>
         <version.guava>18.0</version.guava>
-        <version.lombok>1.16.6</version.lombok>
+        <lombok.version>1.16.6</lombok.version>
         <version.supergw>1.0.0-SNAPSHOT</version.supergw>
         <version.zookeeper>3.4.3</version.zookeeper>
         <version.zkclient>0.1</version.zkclient>
@@ -59,11 +64,44 @@
 
     <dependencyManagement>
         <dependencies>
-            <!--<dependency>-->
-                <!--<groupId>com.shenzeyu</groupId>-->
-                <!--<artifactId>server-service</artifactId>-->
-                <!--<version>${project.version}</version>-->
-            <!--</dependency>-->
+            <dependency>
+                <groupId>com.yangchen</groupId>
+                <artifactId>domain</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.version}</version>
+            </dependency>
+            <!-- lombok -->
+            <dependency>
+                <groupId>org.projectlombok</groupId>
+                <artifactId>lombok</artifactId>
+                <version>${lombok.version}</version>
+            </dependency>
+            <!--log-->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-api.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-core</artifactId>
+                <version>${logback-core.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback-classic.version}</version>
+            </dependency>
 
             <!-- spring framework -->
             <dependency>
@@ -146,16 +184,7 @@
             </dependency>
 
             <!-- dependencies of mysql/mybatis/redis -->
-            <dependency>
-                <groupId>mysql</groupId>
-                <artifactId>mysql-connector-java</artifactId>
-                <version>${version.mysql}</version>
-            </dependency>
-            <dependency>
-                <groupId>org.mybatis</groupId>
-                <artifactId>mybatis</artifactId>
-                <version>${version.mybatis}</version>
-            </dependency>
+
             <dependency>
                 <groupId>org.mybatis</groupId>
                 <artifactId>mybatis-spring</artifactId>
@@ -377,32 +406,6 @@
                 </exclusions>
             </dependency>
 
-            <!-- logback -->
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>1.7.7</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-                <version>1.7.5</version>
-                <exclusions>
-                    <exclusion>
-                        <artifactId>log4j</artifactId>
-                        <groupId>log4j</groupId>
-                    </exclusion>
-                </exclusions>
-            </dependency>
-
-            <!-- https://mvnrepository.com/artifact/log4j/log4j -->
-            <dependency>
-                <groupId>log4j</groupId>
-                <artifactId>log4j</artifactId>
-                <version>1.2.17</version>
-            </dependency>
-
-
             <!-- xml解析 -->
             <dependency>
                 <groupId>com.thoughtworks.xstream</groupId>
@@ -459,13 +462,6 @@
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
                 <version>${version.guava}</version>
-            </dependency>
-
-            <!-- lombok -->
-            <dependency>
-                <groupId>org.projectlombok</groupId>
-                <artifactId>lombok</artifactId>
-                <version>${version.lombok}</version>
             </dependency>
 
             <!-- JODA-TIME -->
@@ -549,17 +545,6 @@
                 <groupId>xml-apis</groupId>
                 <artifactId>xml-apis</artifactId>
                 <version>1.4.01</version>
-            </dependency>
-
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-api</artifactId>
-                <version>1.7.21</version>
-            </dependency>
-            <dependency>
-                <groupId>org.slf4j</groupId>
-                <artifactId>slf4j-log4j12</artifactId>
-                <version>1.7.21</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
